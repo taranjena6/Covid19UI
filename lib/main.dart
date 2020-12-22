@@ -1,8 +1,10 @@
 import 'package:covid_19/constant.dart';
+import 'package:covid_19/info_screen.dart';
 import 'package:covid_19/widgets/counter.dart';
 import 'package:covid_19/widgets/my_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 
 void main() => runApp(MyApp());
 
@@ -17,7 +19,7 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: kBackgroundColor,
           fontFamily: "Poppins",
           textTheme: TextTheme(
-            body1: TextStyle(color: kBodyTextColor),
+            bodyText1: TextStyle(color: kBodyTextColor),
           )),
       home: HomeScreen(),
     );
@@ -35,6 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
+    // ignore: todo
     // TODO: implement initState
     super.initState();
     controller.addListener(onScroll);
@@ -42,6 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void dispose() {
+    // ignore: todo
     // TODO: implement dispose
     controller.dispose();
     super.dispose();
@@ -55,6 +59,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    DateTime now = DateTime.now();
+    var time = DateFormat.yMMMMd('en_US').format(now);
+
     return Scaffold(
       body: SingleChildScrollView(
         controller: controller,
@@ -87,12 +94,44 @@ class _HomeScreenState extends State<HomeScreen> {
                       isExpanded: true,
                       underline: SizedBox(),
                       icon: SvgPicture.asset("assets/icons/dropdown.svg"),
-                      value: "Indonesia",
+                      value: "Andhra Pradesh",
                       items: [
-                        'Indonesia',
-                        'Bangladesh',
-                        'United States',
-                        'Japan'
+                        "Andhra Pradesh",
+                        "Arunachal Pradesh",
+                        "Assam",
+                        "Bihar",
+                        "Chhattisgarh",
+                        "Goa",
+                        "Gujarat",
+                        "Haryana",
+                        "Himachal Pradesh",
+                        "Jammu and Kashmir",
+                        "Jharkhand",
+                        "Karnataka",
+                        "Kerala",
+                        "Madhya Pradesh",
+                        "Maharashtra",
+                        "Manipur",
+                        "Meghalaya",
+                        "Mizoram",
+                        "Nagaland",
+                        "Odisha",
+                        "Punjab",
+                        "Rajasthan",
+                        "Sikkim",
+                        "Tamil Nadu",
+                        "Telangana",
+                        "Tripura",
+                        "Uttarakhand",
+                        "Uttar Pradesh",
+                        "West Bengal",
+                        "Andaman and Nicobar Islands",
+                        "Chandigarh",
+                        "Dadra and Nagar Haveli",
+                        "Daman and Diu",
+                        "Delhi",
+                        "Lakshadweep",
+                        "Puducherry"
                       ].map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
@@ -109,6 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Row(
                     children: <Widget>[
@@ -116,11 +156,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         text: TextSpan(
                           children: [
                             TextSpan(
-                              text: "Case Update\n",
+                              text: "India\n",
                               style: kTitleTextstyle,
                             ),
                             TextSpan(
-                              text: "Newest update March 28",
+                              text: "Cases Update $time",
                               style: TextStyle(
                                 color: kTextLightColor,
                               ),
@@ -128,17 +168,55 @@ class _HomeScreenState extends State<HomeScreen> {
                           ],
                         ),
                       ),
-                      Spacer(),
-                      Text(
-                        "See details",
-                        style: TextStyle(
-                          color: kPrimaryColor,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
                     ],
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: 10),
+                  Container(
+                    padding: EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          offset: Offset(0, 4),
+                          blurRadius: 30,
+                          color: kShadowColor,
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Counter(
+                          color: kInfectedColor,
+                          number: 1046,
+                          title: "Infected",
+                        ),
+                        Counter(
+                          color: kDeathColor,
+                          number: 87,
+                          title: "Deaths",
+                        ),
+                        Counter(
+                          color: kRecovercolor,
+                          number: 46,
+                          title: "Recovered",
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: "State: Odisha",
+                          style: kTitleTextstyle,
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 10),
                   Container(
                     padding: EdgeInsets.all(20),
                     decoration: BoxDecoration(
@@ -174,41 +252,22 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        "Spread of Virus",
-                        style: kTitleTextstyle,
-                      ),
-                      Text(
-                        "See details",
-                        style: TextStyle(
-                          color: kPrimaryColor,
-                          fontWeight: FontWeight.w600,
+                  Text("Prevention", style: kTitleTextstyle),
+                  SizedBox(height: 20),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => InfoScreen(),
                         ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 20),
-                    padding: EdgeInsets.all(20),
-                    height: 178,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          offset: Offset(0, 10),
-                          blurRadius: 30,
-                          color: kShadowColor,
-                        ),
-                      ],
-                    ),
-                    child: Image.asset(
-                      "assets/images/map.png",
-                      fit: BoxFit.contain,
+                      );
+                    },
+                    child: PreventCard(
+                      text:
+                          "Since the start of the coronavirus outbreak some places have fully embraced wearing facemasks",
+                      image: "assets/images/wear_mask.png",
+                      title: "Wear face mask",
                     ),
                   ),
                 ],

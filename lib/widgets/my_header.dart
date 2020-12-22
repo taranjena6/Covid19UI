@@ -41,20 +41,8 @@ class _MyHeaderState extends State<MyHeader> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return InfoScreen();
-                    },
-                  ),
-                );
-              },
-              child: SvgPicture.asset("assets/icons/menu.svg"),
-            ),
-            SizedBox(height: 20),
+            // SvgPicture.asset("assets/icons/menu.svg"),
+            SizedBox(height: 30),
             Expanded(
               child: Stack(
                 children: <Widget>[
@@ -68,8 +56,8 @@ class _MyHeaderState extends State<MyHeader> {
                     ),
                   ),
                   Positioned(
-                    top: 20 - widget.offset / 2,
-                    left: 150,
+                    top: 30 - widget.offset / 2,
+                    left: 128,
                     child: Text(
                       "${widget.textTop} \n${widget.textBottom}",
                       style: kHeadingTextStyle.copyWith(
